@@ -207,7 +207,7 @@ func (c *Compiler) Compile(mainPath string) []error {
 					return true
 				} else if path == "syscall" {
 					for _, tag := range c.BuildTags {
-						if tag == "avr" || tag == "cortexm" || tag == "darwin" {
+						if tag == "avr" || tag == "cortexm" || tag == "darwin" || tag == "riscv" {
 							return true
 						}
 					}
@@ -1283,8 +1283,8 @@ func (c *Compiler) parseCall(frame *Frame, instr *ssa.CallCommon) (llvm.Value, e
 	if fn := instr.StaticCallee(); fn != nil {
 		name := fn.RelString(nil)
 		switch {
-		case name == "device/arm.ReadRegister":
-			return c.emitReadRegister(instr.Args)
+		case name == "device/arm.ReadRegister" || name == "device/riscv.ReadRegister":
+			return c.emitReadRegister(name, instr.Args)
 		case name == "device/arm.Asm" || name == "device/avr.Asm":
 			return c.emitAsm(instr.Args)
 		case name == "device/arm.AsmFull" || name == "device/avr.AsmFull":

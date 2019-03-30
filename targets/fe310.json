@@ -1,0 +1,4 @@
+{
+	"inherits": ["riscv"],
+	"build-tags": ["fe310", "sifive"]
+}

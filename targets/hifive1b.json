@@ -1,0 +1,8 @@
+{
+	"inherits": ["fe310"],
+	"features": ["+a", "+c", "+m"],
+	"build-tags": ["hifive1b"],
+	"ldflags": [
+		"-T", "targets/hifive1b.ld"
+	]
+}
